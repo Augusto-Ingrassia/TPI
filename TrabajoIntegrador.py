@@ -22,8 +22,8 @@ def archivoCSV():
         for linea in paises:
             lista = linea.strip().split(",")
             nombre = lista[0]
-            poblacion = lista[1]
-            superficie = lista[2]
+            poblacion = int(lista[1])
+            superficie = int(lista[2])
             continente = lista[3]
             #Cargamos cada dato en una variable y esta la mandamos a la clase Pais para crear sus atributos
             pais = Pais(nombre,poblacion,superficie,continente)
@@ -82,17 +82,68 @@ def buscarPais(paises):
 def filtrarPaises(paises):
     while True:
         try:
-            opcion = int(input("¿Como desea filtrar los paises?\n1) Por Continente\n2) Por Rango de Poblacion\n3)Por rango de superficie"))
+            opcion = int(input("¿Como desea filtrar los paises?\n1) Por Continente\n2) Por Rango de Poblacion\n3) Por rango de superficie\n4) Regresar al Menu\n"))
             if opcion == 1:
-
+                filtrarPorContinente(paises)
             elif opcion == 2:
-
+                rangoNumeros(paises,"poblacion")
             elif opcion == 3:
-
+                rangoNumeros(paises,"superficie")
+            elif opcion == 4:
+                break
             else:
                 print("Error, ingrese una opcion valida")
         except:
             print("Error, ingrese un numero valido")
+
+#Funcion que se encarga de filtrar los paises con el mismo continente
+def filtrarPorContinente(listaPaises):
+    continentes = ["america","europa","asia","africa","oceania"]
+    bandera = False
+    while True:
+        buscar = input("Ingrese el nombre del continente para filtrar, o si desea regresar ingrese s: ").lower().replace(" ","")
+        if buscar == "s":
+            return
+        elif buscar in continentes:
+            print(f"El continente {buscar} si existe, esta es la lista de los paises dentro de ese continente: ")
+            for pais in listaPaises:
+                if buscar == pais.continente:
+                    pais.mostrarPaises()
+                    bandera = True
+            if bandera == False: print(f"No se encuentra ningun pais con el continente {buscar}")
+            break
+        else: 
+            print(f"No existe un continente con el nombre {buscar}")
+
+#Funcion que se encarga de corroborar que los numeros sean positivos y comprobar el menor y mayor de ellos
+def rangoNumeros(listaPaises,dato): 
+    print("Ingrese un primer numero")
+    numeros1 = validarNumeros()
+    while True:
+        print("Ahora ingrese un numero mayor o menor al anterior")
+        numeros2 = validarNumeros()
+        if numeros1 == numeros2:
+            print("Error, ambos numeros no pueden tener el mismo valor. Ingrese nuevamente el segundo numero")
+        elif numeros1 > numeros2:
+            filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,numeros2,numeros1)
+        else:
+            filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,numeros1,numeros2)
+        break
+
+#Funcion que filtra la informacion segun poblacion o superficie
+def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
+    bandera = False
+    if dato == "poblacion":
+        for pais in listaPaises:
+            if menor <= pais.poblacion <= mayor:
+                pais.mostrarPaises()
+                bandera = True
+    else:
+        for pais in listaPaises:
+            if menor <= pais.poblacion <= mayor:
+                pais.mostrarPaises()
+                bandera = True
+    if bandera == False: print(f"No se encuentra ningun pais entre el rango {menor} y {mayor}")
 
 #Funcion para agregar un pais nuevo
 def agregarPais(listaPaises):
