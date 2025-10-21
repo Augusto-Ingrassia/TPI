@@ -1,4 +1,4 @@
-#Clase paises (no se si esta bien armada)
+#Clase paises
 class Pais:
     def __init__(self,nombre,poblacion,superficie,continente):
         self.nombre = nombre
@@ -6,7 +6,7 @@ class Pais:
         self.superficie = superficie
         self.continente = continente
 
-    #Esto muestra todos los paises cargados hasta el momento, despues se borra
+    #Esta funcion muestra todos los paises cargados hasta el momento
     def mostrarPaises(self):
         print ()
         print(f"Nombre: {self.nombre}")
@@ -72,13 +72,14 @@ def buscarPais(paises):
                     if pais.nombre == buscar:
                         print("Pais encntrado, estos son los datos: ")
                         pais.mostrarPaises()
-                        #Consultar si terminar la funcion una vez haya encontrado el pais buscado o que vuelva al principio de la función (break o return)
+                        #Una vez haya encontrado el Pais buscado regresa al menu
                         return
                 else:
-                    print(f"No se ah encontrado ningun pais con el nombre {pais}")
+                    print(f"No se ah encontrado ningun pais con el nombre {buscar}")
         except:
             print("Opcion invalida, vuelva a intentar")
 
+#Menu de la funcion Filtrar Paises para que el usuario puede seleccionar como desea filtrarlos
 def filtrarPaises(paises):
     while True:
         try:
@@ -98,6 +99,7 @@ def filtrarPaises(paises):
 
 #Funcion que se encarga de filtrar los paises con el mismo continente
 def filtrarPorContinente(listaPaises):
+    #Lista de continentes existentes
     continentes = ["america","europa","asia","africa","oceania"]
     bandera = False
     while True:
@@ -132,6 +134,7 @@ def rangoNumeros(listaPaises,dato):
 
 #Funcion que filtra la informacion segun poblacion o superficie
 def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
+    #La bandera funciona para corroborar si encontro un pais o no. En caso de mo encontrar entra en el if final
     bandera = False
     if dato == "poblacion":
         for pais in listaPaises:
@@ -140,7 +143,7 @@ def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
                 bandera = True
     else:
         for pais in listaPaises:
-            if menor <= pais.poblacion <= mayor:
+            if menor <= pais.superficie <= mayor:
                 pais.mostrarPaises()
                 bandera = True
     if bandera == False: print(f"No se encuentra ningun pais entre el rango {menor} y {mayor}")
@@ -189,7 +192,13 @@ def agregarPais(listaPaises):
         if not nombre.isalpha():
             print("Error, ingrese un nombre sin numeros o caracteres")
         else: 
-            break
+            #Ahora validamos que el nombre del pais no exista ya en la lista de paises
+            for pais in listaPaises:
+                if pais.nombre == nombre:
+                    print(f"Ya existe un pais {nombre}")
+                    break
+            else:        
+                break
     #Llamamos a la funcion para la poblacion y la superficie
     print(f"Ingrese la poblacion del pais {nombre}")
     poblacion = validarNumeros()
