@@ -51,7 +51,7 @@ def menu(paises):
             elif opcion == 6:
                 print("Completar funcion")
             elif opcion == 7:
-                print("Completar funcion")
+                mostrarEstadisticas(paises)
             elif opcion == 8:
                 print("Hasta Luego")
                 break
@@ -185,6 +185,40 @@ def validarNumeros():
                     return respuesta
             except:
                 print("Error ingrese un numero")
+
+#Funcion para mostrar las estadísticas solicitadas
+def mostrarEstadisticas(listaPaises):
+    if not listaPaises:
+        print("No hay países cargados en la lista.")
+        return
+
+    # País con mayor y menor población
+    pais_mayor_poblacion = max(listaPaises, key=lambda p: p.poblacion)
+    pais_menor_poblacion = min(listaPaises, key=lambda p: p.poblacion)
+
+    # Promedios
+    total_poblacion = sum(p.poblacion for p in listaPaises)
+    total_superficie = sum(p.superficie for p in listaPaises)
+    promedio_poblacion = total_poblacion / len(listaPaises)
+    promedio_superficie = total_superficie / len(listaPaises)
+
+    # Cantidad de países por continente
+    conteo_continentes = {}
+    for pais in listaPaises:
+        if pais.continente in conteo_continentes:
+            conteo_continentes[pais.continente] += 1
+        else:
+            conteo_continentes[pais.continente] = 1
+
+    print("\n----- ESTADÍSTICAS GENERALES -----")
+    print(f"País con MAYOR población: {pais_mayor_poblacion.nombre.title()} ({pais_mayor_poblacion.poblacion} habitantes)")
+    print(f"País con MENOR población: {pais_menor_poblacion.nombre.title()} ({pais_menor_poblacion.poblacion} habitantes)")
+    print(f"\nPromedio de población: {promedio_poblacion:.2f} habitantes")
+    print(f"Promedio de superficie: {promedio_superficie:.2f} km²")
+    print("\nCantidad de países por continente:")
+    for continente, cantidad in conteo_continentes.items():
+        print(f" - {continente.title()}: {cantidad}")
+    print("----------------------------------\n")
 
 #Main
 if __name__ == "__main__":
