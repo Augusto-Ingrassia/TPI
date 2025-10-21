@@ -45,11 +45,11 @@ def menu(paises):
             elif opcion == 3:
                 filtrarPaises(paises)
             elif opcion == 4:
-                print("Completar funcion")
+                ordenarPaises(paises)
             elif opcion == 5:
                 agregarPais(paises)
             elif opcion == 6:
-                print("Completar funcion")
+                borrarPais(paises)
             elif opcion == 7:
                 mostrarEstadisticas(paises)
             elif opcion == 8:
@@ -145,6 +145,42 @@ def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
                 bandera = True
     if bandera == False: print(f"No se encuentra ningun pais entre el rango {menor} y {mayor}")
 
+#Funcion Ordenar Paises
+def ordenarPaises(listaPaises):
+    while True:
+        try:
+            print("\n--- ORDENAR PAISES ---")
+            opcion = int(input("¿Por qué desea ordenar los países?\n1) Nombre\n2) Población\n3) Superficie\n4) Volver al menú\n"))
+            
+            if opcion == 4:
+                break
+
+            if opcion == 1:
+                # Ordenar por nombre (siempre ascendente)
+                listaOrdenada = sorted(listaPaises, key=lambda p: p.nombre)
+            elif opcion == 2:
+                orden = input("¿Desea ordenar por población ascendente (a) o descendente (d)? ").lower()
+                if orden == "d":
+                    listaOrdenada = sorted(listaPaises, key=lambda p: p.poblacion, reverse=True)
+                else:
+                    listaOrdenada = sorted(listaPaises, key=lambda p: p.poblacion)
+            elif opcion == 3:
+                orden = input("¿Desea ordenar por superficie ascendente (a) o descendente (d)? ").lower()
+                if orden == "d":
+                    listaOrdenada = sorted(listaPaises, key=lambda p: p.superficie, reverse=True)
+                else:
+                    listaOrdenada = sorted(listaPaises, key=lambda p: p.superficie)
+            else:
+                print("Opción inválida. Intente nuevamente.")
+                continue
+
+            print("\n--- Lista de países ordenada ---")
+            for pais in listaOrdenada:
+                pais.mostrarPaises()
+
+        except:
+            print("Error, ingrese un número válido.")
+
 #Funcion para agregar un pais nuevo
 def agregarPais(listaPaises):
     #Validamos que el nombre del pais sean letras y no numeros o caracteres
@@ -185,6 +221,41 @@ def validarNumeros():
                     return respuesta
             except:
                 print("Error ingrese un numero")
+
+#Funcion Borrar pais
+def borrarPais(listaPaises):
+    while True:
+        try:
+            nombre_borrar = input("Ingrese el nombre del país que desea borrar o 's' para salir: ").lower().replace(" ", "")
+            if nombre_borrar == "s":
+                break
+
+            encontrado = False
+            for pais in listaPaises:
+                if pais.nombre == nombre_borrar:
+                    print("\nPaís encontrado:")
+                    pais.mostrarPaises()
+                    confirmar = input("¿Está seguro que desea eliminar este país? (s/n): ").lower()
+                    if confirmar == "s":
+                        listaPaises.remove(pais)
+                        print(f"✅ El país '{nombre_borrar}' ha sido eliminado correctamente.")
+                        actualizarArchivoCSV(listaPaises)
+                    else:
+                        print("❌ Operación cancelada.")
+                    encontrado = True
+                    break
+
+            if not encontrado:
+                print(f"No se encontró ningún país con el nombre '{nombre_borrar}'. Intente nuevamente.")
+
+        except Exception as e:
+            print("Error, intente nuevamente.", e)
+            
+def actualizarArchivoCSV(listaPaises):
+    with open("Paises.csv", "w") as archivo:
+        for pais in listaPaises:
+            linea = f"{pais.nombre},{pais.poblacion},{pais.superficie},{pais.continente}\n"
+            archivo.write(linea)                
 
 #Funcion para mostrar las estadísticas solicitadas
 def mostrarEstadisticas(listaPaises):
