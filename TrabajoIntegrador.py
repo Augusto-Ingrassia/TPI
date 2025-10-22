@@ -177,11 +177,12 @@ def ordenarPaises(listaPaises):
                 print("Regresando al menú principal...\n")
                 break
 
+            # Ordenar por nombre (siempre ascendente)
             if opcion == 1:
-                # Ordenar por nombre (siempre ascendente)
                 listaOrdenada = sorted(listaPaises, key=lambda p: p.nombre)
                 print("\n📋 Países ordenados por nombre (ascendente):")
 
+            # Ordenar por población o superficie
             elif opcion in (2, 3):
                 tipo = "población" if opcion == 2 else "superficie"
 
@@ -204,9 +205,14 @@ def ordenarPaises(listaPaises):
                 print("❌ Opción inválida. Intente nuevamente.")
                 continue
 
-            # Mostrar lista ordenada
+            # ✅ Mostrar lista ordenada
             for pais in listaOrdenada:
                 pais.mostrarPaises()
+
+            # ✅ Actualizar la lista original y el archivo CSV
+            listaPaises[:] = listaOrdenada  # actualiza la lista original
+            actualizarArchivoCSV(listaPaises)
+            print("💾 Archivo 'Paises.csv' actualizado con el nuevo orden.\n")
 
         except ValueError:
             print("❌ Error: ingrese un número válido para seleccionar una opción.")
