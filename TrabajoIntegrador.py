@@ -6,6 +6,8 @@ class Pais:
         self.superficie = superficie
         self.continente = continente
 
+
+
     #Esto muestra todos los paises cargados hasta el momento, despues se borra
     def mostrarPaises(self):
         print ()
@@ -14,6 +16,8 @@ class Pais:
         print(f"Superficie: {self.superficie}")
         print(f"Continente: {self.continente}")
         print()
+
+
 
 #Funcion para abrir el archivo csv y crear la clase pais junto con sus atributos
 def archivoCSV():
@@ -30,6 +34,8 @@ def archivoCSV():
             #Despues de creada la cargamos a la lista paises que sera retornada al main
             listaPaises.append(pais)
         return listaPaises
+
+
 
 #Menu de Funciones 
 def menu(paises):
@@ -60,6 +66,8 @@ def menu(paises):
         except:
             print("Error, ingrese un numero con las opciones disponibles") 
     
+
+
 #Funcion que busca coincidencia con un pais
 def buscarPais(paises):
     while True:
@@ -96,6 +104,8 @@ def filtrarPaises(paises):
         except:
             print("Error, ingrese un numero valido")
 
+
+
 #Funcion que se encarga de filtrar los paises con el mismo continente
 def filtrarPorContinente(listaPaises):
     continentes = ["america","europa","asia","africa","oceania"]
@@ -115,6 +125,8 @@ def filtrarPorContinente(listaPaises):
         else: 
             print(f"No existe un continente con el nombre {buscar}")
 
+
+
 #Funcion que se encarga de corroborar que los numeros sean positivos y comprobar el menor y mayor de ellos
 def rangoNumeros(listaPaises,dato): 
     print("Ingrese un primer numero")
@@ -129,6 +141,8 @@ def rangoNumeros(listaPaises,dato):
         else:
             filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,numeros1,numeros2)
         break
+
+
 
 #Funcion que filtra la informacion segun poblacion o superficie
 def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
@@ -145,41 +159,60 @@ def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
                 bandera = True
     if bandera == False: print(f"No se encuentra ningun pais entre el rango {menor} y {mayor}")
 
+
+
 #Funcion Ordenar Paises
 def ordenarPaises(listaPaises):
+    if not listaPaises:
+        print("⚠️ No hay países cargados para ordenar.")
+        return
+
     while True:
         try:
-            print("\n--- ORDENAR PAISES ---")
+            print("\n--- ORDENAR PAÍSES ---")
             opcion = int(input("¿Por qué desea ordenar los países?\n1) Nombre\n2) Población\n3) Superficie\n4) Volver al menú\n"))
-            
+
             if opcion == 4:
+                print("Regresando al menú principal...\n")
                 break
 
             if opcion == 1:
                 # Ordenar por nombre (siempre ascendente)
                 listaOrdenada = sorted(listaPaises, key=lambda p: p.nombre)
-            elif opcion == 2:
-                orden = input("¿Desea ordenar por población ascendente (a) o descendente (d)? ").lower()
-                if orden == "d":
-                    listaOrdenada = sorted(listaPaises, key=lambda p: p.poblacion, reverse=True)
-                else:
-                    listaOrdenada = sorted(listaPaises, key=lambda p: p.poblacion)
-            elif opcion == 3:
-                orden = input("¿Desea ordenar por superficie ascendente (a) o descendente (d)? ").lower()
-                if orden == "d":
-                    listaOrdenada = sorted(listaPaises, key=lambda p: p.superficie, reverse=True)
-                else:
-                    listaOrdenada = sorted(listaPaises, key=lambda p: p.superficie)
+                print("\n📋 Países ordenados por nombre (ascendente):")
+
+            elif opcion in (2, 3):
+                tipo = "población" if opcion == 2 else "superficie"
+
+                # 🔒 Validación del orden
+                while True:
+                    orden = input(f"¿Desea ordenar por {tipo} ascendente (a) o descendente (d)? ").strip().lower()
+                    if orden in ("a", "d"):
+                        break
+                    else:
+                        print("❌ Error: ingrese solo 'a' (ascendente) o 'd' (descendente).")
+
+                reverse = (orden == "d")
+                clave = (lambda p: p.poblacion) if opcion == 2 else (lambda p: p.superficie)
+                listaOrdenada = sorted(listaPaises, key=clave, reverse=reverse)
+
+                direccion = "descendente" if reverse else "ascendente"
+                print(f"\n📊 Países ordenados por {tipo} ({direccion}):")
+
             else:
-                print("Opción inválida. Intente nuevamente.")
+                print("❌ Opción inválida. Intente nuevamente.")
                 continue
 
-            print("\n--- Lista de países ordenada ---")
+            # Mostrar lista ordenada
             for pais in listaOrdenada:
                 pais.mostrarPaises()
 
-        except:
-            print("Error, ingrese un número válido.")
+        except ValueError:
+            print("❌ Error: ingrese un número válido para seleccionar una opción.")
+        except Exception as e:
+            print("⚠️ Ocurrió un error inesperado:", e)
+
+
 
 #Funcion para agregar un pais nuevo
 def agregarPais(listaPaises):
@@ -209,6 +242,8 @@ def agregarPais(listaPaises):
         pais = Pais(nombre,poblacion,superficie,continente)
         listaPaises.append(pais)
         
+
+
 #Funcion que unicamente se encarga de validar que los numeros de la poblacion y superficie no sean negativos o nulos
 def validarNumeros():
     while True:
@@ -221,6 +256,8 @@ def validarNumeros():
                     return respuesta
             except:
                 print("Error ingrese un numero")
+
+
 
 #Funcion Borrar pais
 def borrarPais(listaPaises):
@@ -256,6 +293,8 @@ def actualizarArchivoCSV(listaPaises):
         for pais in listaPaises:
             linea = f"{pais.nombre},{pais.poblacion},{pais.superficie},{pais.continente}\n"
             archivo.write(linea)                
+
+
 
 #Funcion para mostrar las estadísticas solicitadas
 def mostrarEstadisticas(listaPaises):

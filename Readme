@@ -1,0 +1,132 @@
+# 🌎 Gestor de Países en Python
+
+## 📝 Descripción del Programa
+
+El **Gestor de Países** es una aplicación desarrollada en **Python** que permite administrar información de diferentes países almacenados en un archivo CSV.  
+Mediante un menú interactivo, el usuario puede **buscar, filtrar, ordenar, agregar y eliminar** países, además de **visualizar estadísticas** sobre la población y la superficie.
+
+El programa está diseñado aplicando **Programación Orientada a Objetos (POO)** con una clase principal `Pais`, y una serie de funciones que gestionan las distintas operaciones sobre los datos.  
+
+-----
+
+## ⚙️ Instrucciones de Uso
+
+### 1️⃣ Requisitos
+- Tener instalado **Python 3.8 o superior**.
+- Tener en la misma carpeta los siguientes archivos:
+  - `gestor_paises.py` → código principal del programa  
+  - `Paises.csv` → archivo base de datos de países  
+  - `README.md` → este documento  
+
+### 2️⃣ Ejecución
+1. Abrir una terminal o consola en la carpeta del proyecto.  
+2. Ejecutar el comando:
+   bash
+   python gestor_paises.py
+
+
+
+| Opción | Descripción                                             |
+| ------ | ------------------------------------------------------- |
+| 1️⃣    | Mostrar países cargados                                 |
+| 2️⃣    | Buscar un país por nombre                               |
+| 3️⃣    | Filtrar países (por continente, población o superficie) |
+| 4️⃣    | Ordenar países por nombre, población o superficie       |
+| 5️⃣    | Agregar un nuevo país                                   |
+| 6️⃣    | Borrar un país existente                                |
+| 7️⃣    | Mostrar estadísticas                                    |
+| 8️⃣    | Salir del programa                                      |
+
+------
+
+💻 Ejemplos de Entradas y Salidas
+🔹 Ejemplo 1 – Buscar un país
+
+Entrada:
+
+Ingrese el nombre del país que desea buscar: argentina
+
+
+Salida:
+
+País encontrado, estos son los datos:
+Nombre: argentina
+Población: 45000000
+Superficie: 2780000
+Continente: america
+
+-----
+
+🔹 Ejemplo 2 – Filtrar por continente
+
+Entrada:
+
+¿Como desea filtrar los países?
+1) Por Continente
+2) Por Rango de Población
+3) Por rango de superficie
+4) Regresar al menú
+
+> 1
+Ingrese el continente: europa
+
+
+Salida:
+
+El continente europa sí existe. Estos son los países dentro de ese continente:
+
+Nombre: francia
+Población: 67000000
+Superficie: 643801
+Continente: europa
+
+-----
+
+| Validación                                              | Descripción |
+| ------------------------------------------------------- | ----------- |
+| ✅ Solo se permiten letras para el nombre de país        |             |
+| ✅ La población y superficie deben ser números positivos |             |
+| ✅ Se verifica que el continente ingresado exista        |             |
+| ✅ Confirmación antes de eliminar un país                |             |
+| ✅ Orden ascendente/descendente solo acepta `a` o `d`    |             |
+| ✅ Manejo de errores en entradas no numéricas            |             |
+| ✅ Control de lista vacía o archivo inexistente          |             |
+
+
+-----
+
+El archivo Paises.csv debe tener el siguiente formato:
+
+nombre,poblacion,superficie,continente
+argentina,45000000,2780000,america
+francia,67000000,643801,europa
+china,1400000000,9596961,asia
+brasil,213000000,8515767,america
+australia,25690000,7692024,oceania
+
+-----
+
+🧠 Conceptos Aplicados
+
+Programación Orientada a Objetos (POO) 🧩
+
+Lectura y escritura de archivos CSV 📄
+
+Validación de datos de entrada ✅
+
+Listas y estructuras de control 🔁
+
+Modularización de funciones 🧠
+
+-----
+
+🏁 Conclusión
+
+El Gestor de Países es un programa educativo que permite practicar los fundamentos de Python y la manipulación de datos mediante clases y archivos.
+Es completamente extensible: se le pueden agregar nuevas funciones como gráficos, estadísticas avanzadas o exportación a otros formatos.
+
+-----
+
+👨‍💻 Autores
+
+Desarrollado por Matheo Bazan, Lautaro Mejias, Tello Ingrassia Augusto
