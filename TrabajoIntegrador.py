@@ -6,8 +6,6 @@ class Pais:
         self.superficie = superficie
         self.continente = continente
 
-
-
     #Esto muestra todos los paises cargados hasta el momento, despues se borra
     def mostrarPaises(self):
         print ()
@@ -241,7 +239,7 @@ def agregarPais(listaPaises):
         paises.write("\n"+f"{nombre},{poblacion},{superficie},{continente}")
         pais = Pais(nombre,poblacion,superficie,continente)
         listaPaises.append(pais)
-        
+
 
 
 #Funcion que unicamente se encarga de validar que los numeros de la poblacion y superficie no sean negativos o nulos
