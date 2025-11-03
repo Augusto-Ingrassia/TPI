@@ -1,4 +1,4 @@
-#Clase paises (no se si esta bien armada)
+#Clase paises
 class Pais:
     def __init__(self,nombre,poblacion,superficie,continente):
         self.nombre = nombre
@@ -6,7 +6,7 @@ class Pais:
         self.superficie = superficie
         self.continente = continente
 
-    #Esto muestra todos los paises cargados hasta el momento, despues se borra
+    #Esta funcion muestra todos los paises cargados hasta el momento
     def mostrarPaises(self):
         print ()
         print(f"Nombre: {self.nombre}")
