@@ -155,7 +155,7 @@ def filtrarPaisPorPoblacionOSuperficie(listaPaises,dato,menor,mayor):
                 bandera = True
     else:
         for pais in listaPaises:
-            if menor <= pais.poblacion <= mayor:
+            if menor <= pais.superficie <= mayor:
                 pais.mostrarPaises()
                 bandera = True
     if bandera == False: print(f"No se encuentra ningun pais entre el rango {menor} y {mayor}")
