@@ -244,7 +244,7 @@ def agregarPais(listaPaises):
     #Verificamos que el continente sea correcto y que exista
     continentes = ["america","europa","asia","africa","oceania"]
     while True:
-        continente = input("Ingrese el continente al que pertenece el pais\n").lower().replace(" ","")
+        continente = input(f"Ingrese el continente al que pertenece el pais {nombre}\n").lower().replace(" ","")
         if continente.isalpha() and continente in continentes:
             break
         else:
@@ -254,6 +254,7 @@ def agregarPais(listaPaises):
         paises.write("\n"+f"{nombre},{poblacion},{superficie},{continente}")
         pais = Pais(nombre,poblacion,superficie,continente)
         listaPaises.append(pais)
+    print(f"El pais {nombre} ah sido agregado correctamente")
 
 
 
